@@ -1,0 +1,103 @@
+//
+// .text
+// SHT_PROGBITS  [0x4000b0 - 0x400141]
+// ram:004000b0-ram:00400141
+//
+// **************************************************************
+// *                          FUNCTION                          *
+// **************************************************************
+// undefined processEntry entry()
+//     undefined         <UNASSIGNED>   <RETURN>
+// _start                                          XREF[3]:     Entry Point(*), 00400018(*), 
+// entry                                                        _elfSectionHeaders::00000050(*)  
+// 004000b0 b8 01 00        MOV        EAX,0x1
+//          00 00
+// 004000b5 bf 01 00        MOV        EDI,0x1
+//          00 00
+// 004000ba 48 be 00        MOV        RSI,hello_msg                                    = 48h    H
+//          10 40 00 
+//          00 00 00 00
+// 004000c4 ba 0f 00        MOV        EDX,0xf
+//          00 00
+// 004000c9 0f 05           SYSCALL
+// 004000cb 48 89 e0        MOV        RAX,RSP
+// 004000ce 48 be 10        MOV        RSI,rsp_buf                                      = ??
+//          10 40 00 
+//          00 00 00 00
+// 004000d8 e8 0a 00        CALL       print_rsp_hex                                    undefined print_rsp_hex()
+//          00 00
+// 004000dd b8 3c 00        MOV        EAX,0x3c
+//          00 00
+// 004000e2 48 31 ff        XOR        RDI,RDI
+// 004000e5 0f 05           SYSCALL
+// **************************************************************
+// *                          FUNCTION                          *
+// **************************************************************
+// undefined print_rsp_hex()
+//     undefined         <UNASSIGNED>   <RETURN>
+// print_rsp_hex                                   XREF[1]:     entry:004000d8(c)  
+// 004000e7 b9 10 00        MOV        ECX,0x10
+//          00 00
+// 004000ec 48 89 f3        MOV        RBX,RSI
+// 004000ef c6 03 30        MOV        byte ptr [RBX],0x30
+// 004000f2 c6 43 01 78     MOV        byte ptr [RBX + 0x1],0x78
+// 004000f6 48 89 c2        MOV        RDX,RAX
+// 004000f9 48 8d 73 02     LEA        RSI,[RBX + 0x2]
+// print_rsp_hex.hex_loop                          XREF[1]:     00400124(j)  
+// 004000fd 48 89 d0        MOV        RAX,RDX
+// 00400100 48 c1 e8 3c     SHR        RAX,0x3c
+// 00400104 48 83 e0 0f     AND        RAX,0xf
+// 00400108 48 83 f8 09     CMP        RAX,0x9
+// 0040010c 76 06           JBE        print_rsp_hex.hex_num
+// 0040010e 48 83 c0 57     ADD        RAX,0x57
+// 00400112 eb 04           JMP        print_rsp_hex.hex_store
+// print_rsp_hex.hex_num                           XREF[1]:     0040010c(j)  
+// 00400114 48 83 c0 30     ADD        RAX,0x30
+// print_rsp_hex.hex_store                         XREF[1]:     00400112(j)  
+// 00400118 88 06           MOV        byte ptr [RSI],AL
+// 0040011a 48 ff c6        INC        RSI
+// 0040011d 48 c1 e2 04     SHL        RDX,0x4
+// 00400121 48 ff c9        DEC        RCX
+// 00400124 75 d7           JNZ        print_rsp_hex.hex_loop
+// 00400126 c6 06 0a        MOV        byte ptr [RSI],0xa
+// 00400129 48 ff c6        INC        RSI
+// 0040012c b8 01 00        MOV        EAX,0x1
+//          00 00
+// 00400131 bf 01 00        MOV        EDI,0x1
+//          00 00
+// 00400136 48 89 f2        MOV        RDX,RSI
+// 00400139 48 29 da        SUB        RDX,RBX
+// 0040013c 48 89 de        MOV        RSI,RBX
+// 0040013f 0f 05           SYSCALL
+// 00400141 c3              RET
+//
+// .data
+// SHT_PROGBITS  [0x401000 - 0x40100e]
+// ram:00401000-ram:0040100e
+//
+// hello_msg                                       XREF[3]:     00400088(*), entry:004000ba(*), 
+//                                                          _elfSectionHeaders::00000090(*)  
+// 00401000 48              ??         48h    H
+// 00401001 65              ??         65h    e
+// 00401002 6c              ??         6Ch    l
+// 00401003 6c              ??         6Ch    l
+// 00401004 6f              ??         6Fh    o
+// 00401005 2c              ??         2Ch    ,
+// 00401006 20              ??         20h     
+// 00401007 46              ??         46h    F
+// 00401008 65              ??         65h    e
+// 00401009 64              ??         64h    d
+// 0040100a 6f              ??         6Fh    o
+// 0040100b 72              ??         72h    r
+// 0040100c 61              ??         61h    a
+// 0040100d 21              ??         21h    !
+// 0040100e 0a              ??         0Ah
+//
+// .bss
+// SHT_NOBITS  [0x401010 - 0x401027]
+// ram:00401010-ram:00401027
+//
+// __bss_start                                     XREF[3]:     Entry Point(*), 
+// rsp_buf                                                  entry:004000ce(*), 
+//                                                          _elfSectionHeaders::000000d0(*)  
+// 00401010                 ??         ??

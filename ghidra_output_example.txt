@@ -1,0 +1,33 @@
+// Example Ghidra Disassembly Output for hello_fedora
+//
+// .text
+// SHT_PROGBITS  [0x4000b0 - 0x400141]
+// ram:004000b0-ram:00400141
+//
+// **************************************************************
+// *                          FUNCTION                          *
+// **************************************************************
+// undefined processEntry entry()
+//     undefined         <UNASSIGNED>   <RETURN>
+// _start                                          XREF[3]:     Entry Point(*), 00400018(*), 
+// entry                                                        _elfSectionHeaders::00000050(*)  
+// 004000b0 b8 01 00        MOV        EAX,0x1
+//          00 00
+// 004000b5 bf 01 00        MOV        EDI,0x1
+//          00 00
+// 004000ba 48 be 00        MOV        RSI,hello_msg                                    = 48h    H
+//          10 40 00 
+//          00 00 00 00
+// 004000c4 ba 0f 00        MOV        EDX,0xf
+//          00 00
+// 004000c9 0f 05           SYSCALL
+// 004000cb 48 89 e0        MOV        RAX,RSP
+// 004000ce 48 be 10        MOV        RSI,rsp_buf                                      = ??
+//          10 40 00 
+//          00 00 00 00
+// 004000d8 e8 0a 00        CALL       print_rsp_hex                                    undefined print_rsp_hex()
+//          00 00
+// 004000dd b8 3c 00        MOV        EAX,0x3c
+//          00 00
+// 004000e2 48 31 ff        XOR        RDI,RDI
+// 004000e5 0f 05           SYSCALL

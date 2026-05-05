@@ -1,0 +1,69 @@
+
+hello_fedora:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+00000000004000b0 <_start>:
+  4000b0:	b8 01 00 00 00       	mov    $0x1,%eax
+  4000b5:	bf 01 00 00 00       	mov    $0x1,%edi
+  4000ba:	48 be 00 10 40 00 00 	movabs $0x401000,%rsi
+  4000c1:	00 00 00 
+  4000c4:	ba 0f 00 00 00       	mov    $0xf,%edx
+  4000c9:	0f 05                	syscall
+  4000cb:	48 89 e0             	mov    %rsp,%rax
+  4000ce:	48 be 10 10 40 00 00 	movabs $0x401010,%rsi
+  4000d5:	00 00 00 
+  4000d8:	e8 0a 00 00 00       	call   4000e7 <print_rsp_hex>
+  4000dd:	b8 3c 00 00 00       	mov    $0x3c,%eax
+  4000e2:	48 31 ff             	xor    %rdi,%rdi
+  4000e5:	0f 05                	syscall
+
+00000000004000e7 <print_rsp_hex>:
+  4000e7:	b9 10 00 00 00       	mov    $0x10,%ecx
+  4000ec:	48 89 f3             	mov    %rsi,%rbx
+  4000ef:	c6 03 30             	movb   $0x30,(%rbx)
+  4000f2:	c6 43 01 78          	movb   $0x78,0x1(%rbx)
+  4000f6:	48 89 c2             	mov    %rax,%rdx
+  4000f9:	48 8d 73 02          	lea    0x2(%rbx),%rsi
+
+00000000004000fd <print_rsp_hex.hex_loop>:
+  4000fd:	48 89 d0             	mov    %rdx,%rax
+  400100:	48 c1 e8 3c          	shr    $0x3c,%rax
+  400104:	48 83 e0 0f          	and    $0xf,%rax
+  400108:	48 83 f8 09          	cmp    $0x9,%rax
+  40010c:	76 06                	jbe    400114 <print_rsp_hex.hex_num>
+  40010e:	48 83 c0 57          	add    $0x57,%rax
+  400112:	eb 04                	jmp    400118 <print_rsp_hex.hex_store>
+
+0000000000400114 <print_rsp_hex.hex_num>:
+  400114:	48 83 c0 30          	add    $0x30,%rax
+
+0000000000400118 <print_rsp_hex.hex_store>:
+  400118:	88 06                	mov    %al,(%rsi)
+  40011a:	48 ff c6             	inc    %rsi
+  40011d:	48 c1 e2 04          	shl    $0x4,%rdx
+  400121:	48 ff c9             	dec    %rcx
+  400124:	75 d7                	jne    4000fd <print_rsp_hex.hex_loop>
+  400126:	c6 06 0a             	movb   $0xa,(%rsi)
+  400129:	48 ff c6             	inc    %rsi
+  40012c:	b8 01 00 00 00       	mov    $0x1,%eax
+  400131:	bf 01 00 00 00       	mov    $0x1,%edi
+  400136:	48 89 f2             	mov    %rsi,%rdx
+  400139:	48 29 da             	sub    %rbx,%rdx
+  40013c:	48 89 de             	mov    %rbx,%rsi
+  40013f:	0f 05                	syscall
+  400141:	c3                   	ret
+
+Disassembly of section .data:
+
+0000000000401000 <hello_msg>:
+  401000:	48                   	rex.W
+  401001:	65 6c                	gs insb (%dx),(%rdi)
+  401003:	6c                   	insb   (%dx),(%rdi)
+  401004:	6f                   	outsl  (%rsi),(%dx)
+  401005:	2c 20                	sub    $0x20,%al
+  401007:	46                   	rex.RX
+  401008:	65 64 6f             	gs outsl %fs:(%rsi),(%dx)
+  40100b:	72 61                	jb     40106e <_end+0x46>
+  40100d:	21 0a                	and    %ecx,(%rdx)
